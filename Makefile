@@ -1,7 +1,7 @@
 # --- Makefile ---
-APP_NAME   := patcher
+APP_NAME   := pachingo
 BUILD_DIR  := bin
-MAIN_PATH  := ./cmd/patcher
+MAIN_PATH  := ./cmd/pachingo
 GO_FLAGS   := -trimpath -ldflags="-s -w"
 
 .PHONY: all build test lint fmt vet run clean check-tools help

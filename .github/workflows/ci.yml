@@ -53,5 +53,5 @@ jobs:
 
       - name: Cross-Platform Build Verification
         run: |
-          GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/patcher
-          GOOS=linux GOARCH=arm64 go build -o /dev/null ./cmd/patcher
+          GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/pachingo
+          GOOS=linux GOARCH=arm64 go build -o /dev/null ./cmd/pachingo

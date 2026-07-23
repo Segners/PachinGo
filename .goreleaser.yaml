@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
 
-project_name: patcher
+project_name: pachingo
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: patcher-linux
-    main: ./cmd/patcher
-    binary: patcher
+  - id: pachingo-linux
+    main: ./cmd/pachingo
+    binary: pachingo
     env:
       - CGO_ENABLED=0
     goos:
