@@ -34,12 +34,28 @@ checksum:
   name_template: "checksums.txt"
 
 changelog:
+  use: github
   sort: asc
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\(.+\))?!?:.+$'
+      order: 0
+    - title: Bug Fixes
+      regexp: '^.*?fix(\(.+\))?!?:.+$'
+      order: 1
+    - title: Documentation
+      regexp: '^.*?docs(\(.+\))?!?:.+$'
+      order: 2
+    - title: Maintenance
+      regexp: '^.*?(chore|ci|refactor|perf|style|test|build)(\(.+\))?!?:.+$'
+      order: 3
+    - title: Others
+      order: 999
   filters:
     exclude:
-      - "^docs:"
-      - "^test:"
-      - "^chore:"
+      - '^Merge pull request'
+      - '^Merge branch'
+      - '^Initial commit'
 
 release:
   draft: false
