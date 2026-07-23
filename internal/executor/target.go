@@ -2,7 +2,6 @@ package executor
 
 import "context"
 
-// Update décrit un paquet ou composant à mettre à jour.
 type Update struct {
 	Package      string `json:"package"`
 	CurrentVer   string `json:"current_version"`
