@@ -4,7 +4,7 @@ BUILD_DIR  := bin
 MAIN_PATH  := ./cmd/pachingo
 GO_FLAGS   := -trimpath -ldflags="-s -w"
 
-.PHONY: all build test lint fmt vet run clean check-tools help
+.PHONY: all build test lint fmt vet run clean check-tools desktop-dev desktop-build help
 
 all: lint test build
 
@@ -17,29 +17,37 @@ build:
 ## test: Exécute les tests unitaires avec race detector
 test:
 	@echo "--> Running unit tests with race detector..."
-	go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
-
-## lint: Vérifie le style via golangci-lint
-lint:
-	@echo "--> Running golangci-lint..."
-	golangci-lint run ./...
-
-## fmt: Vérifie le formatage gofmt (échec si fichiers non formatés)
-fmt:
-	@echo "--> Checking gofmt..."
-	@test -z "$$(gofmt -l .)" || (echo "gofmt needed on:" && gofmt -l . && exit 1)
+	go test -v -race -coverprofile=coverage.out -covermode=atomic ./cmd/... ./internal/...
 
 ## vet: Analyse statique go vet
 vet:
 	@echo "--> Running go vet..."
-	go vet ./...
+	go vet ./cmd/... ./internal/...
+
+## lint: Vérifie le style via golangci-lint
+lint:
+	@echo "--> Running golangci-lint..."
+	golangci-lint run ./cmd/... ./internal/...
+
+## fmt: Vérifie le formatage gofmt (échec si fichiers non formatés)
+fmt:
+	@echo "--> Checking gofmt..."
+	@test -z "$$(gofmt -l ./cmd ./internal ./desktop/*.go)" || (echo "gofmt needed on:" && gofmt -l ./cmd ./internal ./desktop/*.go && exit 1)
 
 ## run: Exécute l'application en dry-run
 run: build
 	@echo "--> Running $(APP_NAME) dry-run..."
 	./$(BUILD_DIR)/$(APP_NAME) check --config configs/config.example.yml
 
-## clean: Supprime les binaires et fichiers temporaires
+## desktop-dev: Lance le desktop Wails en mode live
+desktop-dev:
+	cd desktop && wails dev
+
+## desktop-build: Compile le desktop Wails
+desktop-build:
+	cd desktop && wails build
+
+## clean: Supprime les binaires et fichiers de coverage
 clean:
 	@echo "--> Cleaning build directory..."
 	@rm -rf $(BUILD_DIR) coverage.out coverage.txt

@@ -27,6 +27,11 @@ go.work.sum
 # env file
 .env
 
+# Local PachinGo config & exports (keep example only)
+configs/config.yml
+exports/
+*.xlsx
+
 # Editor/IDE
 # .idea/
 # .vscode/

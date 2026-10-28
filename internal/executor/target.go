@@ -1,13 +1,13 @@
 package executor
 
-import "context"
+import (
+	"context"
 
-type Update struct {
-	Package      string `json:"package"`
-	CurrentVer   string `json:"current_version"`
-	AvailableVer string `json:"available_version"`
-	Severity     string `json:"severity"`
-}
+	"github.com/Segners/PachinGo/internal/patch"
+)
+
+// Update is an alias for patch.Update for callers.
+type Update = patch.Update
 
 // Target définit le contrat que tout type de cible (LXC, VM ) doit respecter.
 type Target interface {

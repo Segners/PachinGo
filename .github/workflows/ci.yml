@@ -23,25 +23,32 @@ jobs:
           go-version-file: go.mod
           cache: true
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: desktop/frontend/package-lock.json
+
       - name: Check formatting
         run: |
-          if [ -n "$(gofmt -l .)" ]; then
+          if [ -n "$(gofmt -l ./cmd ./internal ./desktop/*.go)" ]; then
             echo "The following files need gofmt:"
-            gofmt -l .
+            gofmt -l ./cmd ./internal ./desktop/*.go
             exit 1
           fi
 
       - name: Run go vet
-        run: go vet ./...
+        run: go vet ./cmd/... ./internal/...
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v9
         with:
           version: latest
-          args: --timeout=5m
+          args: --timeout=5m ./cmd/... ./internal/...
 
       - name: Run Unit Tests (with Race Detector)
-        run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+        run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./cmd/... ./internal/...
 
       - name: Upload coverage
         if: always()
@@ -55,3 +62,8 @@ jobs:
         run: |
           GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/pachingo
           GOOS=linux GOARCH=arm64 go build -o /dev/null ./cmd/pachingo
+
+      - name: Build desktop package
+        run: |
+          cd desktop/frontend && npm ci && npm run build
+          cd ../.. && go build -o /dev/null ./desktop/

@@ -1,59 +1,428 @@
-#app {
-    height: 100vh;
-    text-align: center;
+:root {
+    --bg: #f3f6fa;
+    --surface: #ffffff;
+    --navy: #0b1f3a;
+    --navy-mid: #16325c;
+    --line: #d5deea;
+    --text: #0b1f3a;
+    --muted: #5c6d82;
+    --cyan: #00b4e6;
+    --cyan-deep: #007eab;
+    --warn: #e89a2d;
+    --danger: #b42318;
+    --font-display: "Fraunces", "Palatino Linotype", Palatino, serif;
+    --font-body: "Source Sans 3", "Segoe UI", sans-serif;
 }
 
-#logo {
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background:
+        radial-gradient(900px 420px at 0% -10%, rgba(0, 180, 230, 0.16) 0%, transparent 60%),
+        linear-gradient(180deg, #f7fafc 0%, var(--bg) 40%);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.layout {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 1.25rem 1.5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--navy);
+    color: #f4f8fc;
+    margin: -1.25rem -1.5rem 0;
+    padding: 0.9rem 1.5rem;
+    border-radius: 0 0 14px 14px;
+}
+
+.brand-block {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 0 0 auto;
+}
+
+.logo {
     display: block;
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    padding: 10% 0 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-origin: content-box;
+    width: 96px;
+    height: 96px;
+    min-width: 96px;
+    min-height: 96px;
+    flex: 0 0 96px;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    border-radius: 12px;
 }
 
-.result {
-    height: 20px;
-    line-height: 20px;
-    margin: 1.5rem auto;
+.brand {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #ffffff;
 }
 
-.input-box .btn {
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 3px;
+.sub {
+    margin: 0.15rem 0 0;
+    color: #c5d4e8;
+    font-size: 0.95rem;
+}
+
+.nav {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #c5d4e8;
+    padding: 0.45rem 0.85rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.nav-btn:hover {
+    color: #ffffff;
+    border-color: var(--navy-mid);
+}
+
+.nav-btn.active {
+    color: var(--navy);
+    border-color: var(--cyan);
+    background: var(--cyan);
+}
+
+.config-line {
+    margin: 0.85rem 0 0.35rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.config-line code {
+    color: var(--text);
+    font-size: 0.85rem;
+}
+
+.linkish {
+    background: none;
     border: none;
-    margin: 0 0 0 20px;
-    padding: 0 8px;
+    color: var(--cyan-deep);
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.status {
+    margin: 0.25rem 0 0;
+    color: var(--cyan-deep);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.main {
+    flex: 1;
+    margin-top: 1.25rem;
+}
+
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.15rem 1.25rem 1.4rem;
+}
+
+.panel h1 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 550;
+    color: var(--navy);
+}
+
+.panel h2 {
+    margin: 1.25rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.lead {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    max-width: 42rem;
+}
+
+.split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border-top: 1px solid var(--line);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.55rem 0.45rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.err {
+    color: var(--danger);
+    word-break: break-word;
+}
+
+.actions {
+    white-space: nowrap;
+}
+
+.actions button {
+    margin-right: 0.35rem;
+}
+
+button,
+.secondary {
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid #0090c0;
+    background: var(--cyan);
+    color: var(--navy);
+    padding: 0.45rem 0.9rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+button.secondary,
+.secondary {
+    background: var(--surface);
+    color: var(--navy);
+    border-color: var(--line);
+    margin-top: 0.75rem;
+}
+
+button.ghost {
+    background: var(--surface);
+    color: var(--navy);
+    border-color: var(--line);
+}
+
+button.ghost:hover:not(:disabled) {
+    border-color: var(--cyan);
+    color: var(--cyan-deep);
+}
+
+button.warn {
+    background: var(--warn);
+    border-color: #c47a18;
+    color: #1a1205;
+}
+
+button.danger {
+    background: transparent;
+    border-color: #e7b4b0;
+    color: var(--danger);
+}
+
+.btn-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.picker {
+    margin-bottom: 0.35rem;
+}
+
+.picker-list {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.picker-list label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    background: var(--bg);
     cursor: pointer;
 }
 
-.input-box .btn:hover {
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-    color: #333333;
+.kind {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--cyan-deep);
+    font-weight: 700;
 }
 
-.input-box .input {
-    border: none;
-    border-radius: 3px;
-    outline: none;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    background-color: rgba(240, 240, 240, 1);
-    -webkit-font-smoothing: antialiased;
+.patch-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1rem;
+    align-items: stretch;
 }
 
-.input-box .input:hover {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
+@media (max-width: 900px) {
+    .patch-split {
+        grid-template-columns: 1fr;
+    }
 }
 
-.input-box .input:focus {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
+.row-clickable {
+    cursor: pointer;
+}
+
+.row-clickable:hover {
+    background: rgba(0, 180, 230, 0.08);
+}
+
+.row-selected {
+    cursor: pointer;
+    background: rgba(0, 180, 230, 0.16);
+}
+
+.console-panel {
+    border: 1px solid var(--navy-mid);
+    border-radius: 8px;
+    background: var(--navy);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.console-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--navy-mid);
+    color: #9eb4cc;
+    font-size: 0.85rem;
+}
+
+.console-head code {
+    color: var(--cyan);
+    font-size: 0.8rem;
+}
+
+.console {
+    margin: 0;
+    flex: 1;
+    padding: 0.75rem;
+    overflow: auto;
+    max-height: 420px;
+    font-family: "Cascadia Code", "Consolas", "Courier New", monospace;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #d6e4f0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--line);
+}
+
+.form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.form label.check {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form input,
+.form select {
+    font: inherit;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.4rem 0.55rem;
+}
+
+.form button[type='submit'] {
+    margin-top: 0.35rem;
+    align-self: flex-start;
 }
