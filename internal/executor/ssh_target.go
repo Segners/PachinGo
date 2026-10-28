@@ -42,7 +42,7 @@ func (t *SSHTarget) withManager(ctx context.Context, log LogFunc, fn func(*sshx.
 	if err != nil {
 		return err
 	}
-	defer client.Close()
+	defer func() { _ = client.Close() }()
 	if log != nil {
 		client.SetLineLogger(func(line string) {
 			log(t.target.Name, line)
@@ -138,7 +138,7 @@ func runPool(ctx context.Context, cfg *config.Config, names []string, log LogFun
 				results[i] = hr
 				return
 			}
-			defer client.Close()
+			defer func() { _ = client.Close() }()
 			if log != nil {
 				client.SetLineLogger(func(line string) { log(t.Name, line) })
 			}

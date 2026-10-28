@@ -44,7 +44,7 @@ func ScanHost(ctx context.Context, cfg *config.Config, t config.Target) HostInve
 		inv.Error = err.Error()
 		return inv
 	}
-	defer client.Close()
+	defer func() { _ = client.Close() }()
 
 	if mgr, err := patch.New(ctx, client); err == nil {
 		inv.OS = mgr.OSPrettyName(ctx)

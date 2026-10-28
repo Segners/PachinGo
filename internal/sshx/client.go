@@ -195,7 +195,7 @@ func (c *Client) RunWithStdin(ctx context.Context, command string, stdin []byte)
 	if err != nil {
 		return "", err
 	}
-	defer session.Close()
+	defer func() { _ = session.Close() }()
 
 	// PTY only when feeding sudo -S (some hosts use Defaults requiretty).
 	if stdin != nil {

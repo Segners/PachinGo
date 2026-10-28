@@ -81,7 +81,7 @@ func (l *Logger) Log(action, target string, success bool, detail string) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	if _, err := f.Write(append(b, '\n')); err != nil {
 		return err
 	}

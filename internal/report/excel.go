@@ -12,7 +12,7 @@ import (
 // Export writes Hosts, Technologies and Updates sheets to path.
 func Export(path string, inv []inventory.HostInventory, checks []executor.HostResult) error {
 	f := excelize.NewFile()
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	hostsSheet := "Hosts"
 	techSheet := "Technologies"
